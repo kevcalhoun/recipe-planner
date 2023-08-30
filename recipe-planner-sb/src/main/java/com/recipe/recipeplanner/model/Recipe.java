@@ -3,6 +3,8 @@ package com.recipe.recipeplanner.model;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.List;
 
 @Entity
 public class Recipe implements Serializable {
@@ -13,11 +15,13 @@ public class Recipe implements Serializable {
     private String recipeName;
     private String recipeImageUrl;
     private String recipeDescription;
+    private List<Ingredient> recipeIngredients;
 
-    public Recipe(String recipeName, String recipeImageUrl, String recipeDescription) {
+    public Recipe(String recipeName, String recipeImageUrl, String recipeDescription, List<Ingredient> recipeIngredients) {
         this.recipeName = recipeName;
         this.recipeImageUrl = recipeImageUrl;
         this.recipeDescription = recipeDescription;
+        this.recipeIngredients = recipeIngredients;
     }
 
     public Long getId() {
@@ -52,6 +56,14 @@ public class Recipe implements Serializable {
         this.recipeDescription = recipeDescription;
     }
 
+    public List<Ingredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(List<Ingredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
+    }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -59,6 +71,7 @@ public class Recipe implements Serializable {
                 ", recipeName='" + recipeName + '\'' +
                 ", recipeImageUrl='" + recipeImageUrl + '\'' +
                 ", recipeDescription='" + recipeDescription + '\'' +
+                ", recipeIngredients='" + recipeIngredients + '\'' +
                 '}';
     }
 
