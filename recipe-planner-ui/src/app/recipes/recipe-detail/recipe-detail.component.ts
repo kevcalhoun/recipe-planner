@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -22,14 +23,23 @@ export class RecipeDetailComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
-          this.id = +params['id'];
-          this.recipe = this.recipeService.getRecipe(this.id);
+          this.id = + params['id'];
+         this.recipeService.getRecipeById(this.id).subscribe({
+            next: data => {
+              this.recipe = data
+            },
+            error: (err: HttpErrorResponse) => {
+              alert(err.message);
+            },
+            complete: () => {
+            }
+          });
         }
       );
   }
 
   onAddToShoppingList() {
-    this.recipeService.addIngredientsToShoppingList(this.recipe.ingredients);
+    this.recipeService.addIngredientsToShoppingList(this.recipe.recipeIngredients);
   }
 
   onEditRecipe() {

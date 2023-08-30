@@ -32,7 +32,7 @@ export class DataStorageService {
                     return recipes.map(recipe => {
                         return {
                             ...recipe, 
-                            ingredients: recipe.ingredients ? recipe.ingredients : []
+                            ingredients: recipe.recipeIngredients ? recipe.recipeIngredients : []
                         };
                     });
                 }),

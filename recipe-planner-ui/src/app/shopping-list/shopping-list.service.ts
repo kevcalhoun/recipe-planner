@@ -1,14 +1,18 @@
 import { Subject } from 'rxjs';
 
 import { Ingredient } from '../shared/ingredient.model';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class ShoppingListService {
+    private apiServerUrl = environment.apiBaseUrl;
     ingredientsChanged = new Subject<Ingredient[]>();
     startedEditing = new Subject<number>();
-    private ingredients: Ingredient[] = [
-        new Ingredient('Apples', 5),
-        new Ingredient('Tomatoes', 10)
-    ];
+    private ingredients: Ingredient[] = [];
+
+    constructor(private http: HttpClient) {}
 
     getIngredients() {
         return this.ingredients.slice();
@@ -28,8 +32,9 @@ export class ShoppingListService {
         // }
 
         //Spread operator usage (...)
-        this.ingredients.push(...ingredients);
-        this.ingredientsChanged.next(this.ingredients.slice());
+        // this.ingredients.push(...ingredients);
+        // this.ingredientsChanged.next(this.ingredients.slice());
+        return this.http.post<Ingredient>(`${this.apiServerUrl}/ingredient/add`, ingredients);
     }
 
     updateIngredient(index: number, newIngredient: Ingredient) {

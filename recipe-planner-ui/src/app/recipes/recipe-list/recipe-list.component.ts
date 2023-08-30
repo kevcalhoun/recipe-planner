@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Recipe } from '../recipe.model';
 import { RecipeService } from '../recipe.service';
 import { Subscription } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -26,7 +27,17 @@ export class RecipeListComponent implements OnInit, OnDestroy {
           this.recipes = recipes;
         }
       )
-    this.recipes = this.recipeService.getRecipes();
+    this.recipeService.getRecipes().subscribe({
+      next: data => {
+        this.recipes = data;
+      }, 
+      error: (err: HttpErrorResponse) => {
+        alert(err.message);
+      },
+      complete: () => {
+        console.log(this.recipes);
+      }
+    });;
   }
 
   onNewRecipe() {
