@@ -4,8 +4,7 @@ Add new recipes to your recipe book and create your shopping list by selecting y
 to run UI application - run ng serve within recipe-planner-ui folder
 
 Technologies:
-Angular
-Typescript
+HTML. CSS, Angular, Typescript, Springboot, Java 
 
-Libraries: 
+UI Libraries: 
 Bootstrap
